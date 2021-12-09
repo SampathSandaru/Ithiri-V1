@@ -20,7 +20,7 @@ class User extends CI_Controller {
         $this->load->model('User_model');
 
         if($this->form_validation->run()==false){
-            $this->session->set_flashdata('status', 'Error!');
+            $this->session->set_flashdata('Error_status', 'Error!');
 		}else{
             $this->User_model->AddUser();
             $this->session->set_flashdata('status', 'Successful!');
@@ -40,7 +40,7 @@ class User extends CI_Controller {
     $this->load->model('User_model');
 
     if($this->form_validation->run()==false){
-        $this->session->set_flashdata('status', 'Error!');
+        $this->session->set_flashdata('Error_status', 'Error!');
     }else{
         $this->User_model->UpdateUser();
         $this->session->set_flashdata('status', 'Update Successful!');
@@ -69,7 +69,7 @@ class User extends CI_Controller {
     $this->load->model('User_model');
 
     if($this->form_validation->run()==false){
-        $this->session->set_flashdata('status', 'Error!');
+        $this->session->set_flashdata('Error_status', 'Error!');
     }else{
         $this->User_model->saveMasking();
         $this->session->set_flashdata('status', 'Inserted Successful!');
@@ -84,7 +84,7 @@ class User extends CI_Controller {
     if( $this->User_model->delete_User()){
         $this->session->set_flashdata('status', 'Deleted Successfuly!');
     }else{
-        $this->session->set_flashdata('status', 'Error!');
+        $this->session->set_flashdata('Error_status', 'Error!');
     }
  
     $data["userData"] = $this->User_model->getUserData();
@@ -97,7 +97,7 @@ class User extends CI_Controller {
     if( $this->User_model->delete_UserMasking()){
         $this->session->set_flashdata('status', 'Deleted Successfuly!');
     }else{
-        $this->session->set_flashdata('status', 'Error!');
+        $this->session->set_flashdata('Error_status', 'Error!');
     }
  
     $data["maskingData"] = $this->User_model->getUserMaskingData();
@@ -106,7 +106,6 @@ class User extends CI_Controller {
    }
 
    function updateUserMasking(){
-    $this->form_validation->set_rules('userId','User ID','required');
     $this->form_validation->set_rules('masking','User Masking','required');
     $this->form_validation->set_rules('activate_at','Activated date','required');
     $this->form_validation->set_rules('deactivate_at','Deactivated date','required');
@@ -118,13 +117,52 @@ class User extends CI_Controller {
     $this->load->model('User_model');
 
     if($this->form_validation->run()==false){
-        $this->session->set_flashdata('status', 'Error!');
+        $this->session->set_flashdata('Error_status', 'Error!');
     }else{
-        $this->User_model->UpdateUser();
+        $this->User_model->Update_masking();
         $this->session->set_flashdata('status', 'Update Successful!');
     }
-    $data["userData"] = $this->User_model->getUserData();
-    $this->load->view('user',$data);
+    $data["maskingData"] = $this->User_model->getUserMaskingData();
+    $data["usersId"]=$this->User_model->GetUserId();
+    $this->load->view('user_masking',$data);
+   }
+
+   public function userpayment(){
+        $this->load->model('User_model');
+
+        $data["PayemntData"] = $this->User_model->getUserPayment();
+        $data["maskingIds"] = $this->User_model->get_maskingId();
+        $this->load->view('user_payment',$data);
+   }
+
+   //save user payment
+   function AddPayment(){
+        $this->form_validation->set_rules('masking_id','Masking id ','required');
+        $this->form_validation->set_rules('amount','amount ','required');
+        $this->form_validation->set_rules('paid_date','paid date','required');
+        $this->form_validation->set_rules('discount_amount','Discount amount ','required');
+        $this->form_validation->set_rules('paymentStatus','Payment Status','required');
+
+        $this->load->model('User_model');
+
+        if($this->form_validation->run()==false){
+            $this->session->set_flashdata('Error_status', 'Error!');
+        }else{
+            $this->User_model->Add_user_payment();
+            $this->session->set_flashdata('status', 'Payment Add Successful!');
+        }
+
+        $data["PayemntData"] = $this->User_model->getUserPayment();
+        $data["maskingIds"] = $this->User_model->get_maskingId();
+        $this->load->view('user_payment',$data);
+   }
+
+   //search payment data
+   function SearchDate(){
+        $this->load->model('User_model');
+        $data["PayemntData"] = $this->User_model->SearchPayment();
+        $data["maskingIds"] = $this->User_model->get_maskingId();
+        $this->load->view('user_payment',$data);
    }
 }
 

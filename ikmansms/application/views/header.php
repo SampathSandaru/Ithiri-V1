@@ -309,6 +309,12 @@
                                     <span data-key="t-dashboard"  >User Masking</span>
                                 </a>
                             </li>
+                            <li class="nav_hove">
+                                <a href = "<?php echo base_url('index.php/User/userpayment')?>">
+                                     <img src="<?php echo base_url()?>/public/assets/marchant.svg" style="width:20px;height:20px" />
+                                    <span data-key="t-dashboard"  >User Payment</span>
+                                </a>
+                            </li>
 
                             <li class="nav_hove">
                                 <a href="<?php echo base_url()?>Merchant">

@@ -12,9 +12,9 @@
                         </div>
                     </div>
                     <?php
-                    if(validation_errors()){
+                    if($this->session->flashdata('Error_status')){
                         echo " <div class=\"alert alert-danger\">";
-                        echo $this->session->flashdata('status');
+                        echo $this->session->flashdata('Error_status');
                         echo "</div>";
                     }else if($this->session->flashdata('status')){
                         echo " <div class=\"alert alert-success\">";
@@ -37,7 +37,7 @@
                                             <?php echo $userId->user_id."-".$userId->user_name;?></option>
                                         <?php }?>
                                     </select>
-                                    <small class="text-danger"><?php echo form_error('name'); ?></small>
+                                    <small class="text-danger"><?php echo form_error('user_id'); ?></small>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -145,7 +145,7 @@
                             <td><?php echo $data->sms_balance?></td>
                             <td><?php echo $data->package?></td>
                             <td><?php echo $data->sms_charge?></td>
-                            <td><?php echo $data->status == 1 ? 'Active':'Inactive';?></td>
+                            <td><?php echo $data->status == 1 ? 'Active':'Deactive';?></td>
                             <td><i style="padding:10px" class="bx bx-remove-alt" data-bs-toggle="modal"
                                     data-bs-target="#myModal"> <i class="bx bx-edit-alt"
                                         onclick="updateuser_masking('<?php echo $data->user_id;?>','<?php echo $data->user_masking_id;?>','<?php echo $data->masking;?>',
@@ -175,13 +175,13 @@
 
             <!-- user update form -->
             <div class="modal-body">
-                <?php echo form_open('User/AddMasking');?>
+                <?php echo form_open('User/updateUserMasking');?>
                 <form class="needs-validation" method="post">
                     <input type="hidden" name="masking_id" id="masking_id">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label" for="validationCustom01">User ID</label>
+                                <label class="form-label">User ID</label>
                                 <input type="text" class="form-control" name="userId" id="user_id" readonly>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label" for="validationCustom03">Package</label>
+                                <label class="form-label">Package</label>
                                 <select class="form-control"  name="package" id="packageId">
                                     <option value=" ">Select Package</option>
                                     <option value="type1">Type1</option>
@@ -248,6 +248,7 @@
                                         <option value="">Select Status</option>
                                         <option value="1">Active</option>
                                         <option value="0">Deactive</option>
+                                        <option value="2">Deleted</option>
                                     </select>
                                     <small class="text-danger"><?php echo form_error('status'); ?></small>
                                 </div>
@@ -279,7 +280,7 @@
             <div class="modal-footer">
                 <?php echo form_open('User/deleteUserMasking');?>
                 <form class="needs-validation" method="post">
-                    <input type="hidden" id="masking_id" name="masking_id">
+                    <input type="hidden" id="u_masking_id" name="masking_id">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Delete</button>
                 </form>
@@ -303,7 +304,7 @@ function updateuser_masking(user_id, masking_id, masking, activate_at, deactivat
 }
 
 function deleteUserMask(id) {
-    document.getElementById('masking_id').value = id;
+    document.getElementById('u_masking_id').value = id;
 }
 </script>
 

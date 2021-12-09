@@ -73,27 +73,56 @@ class User_model extends CI_Model {
     function delete_UserMasking(){
         $id = $this->input->post('masking_id');
         $values = array(
-            'status'=> 2
-          
+            'status'=> 2 
         );
         $this->db->where('user_masking_id',$id);
         return $this->db->update('user_masking', $values);
     }
 
     function Update_masking(){
-        $id = $this->input->post('id');
+        $id = $this->input->post('masking_id');
         $values = array(
-            'user_name'=> $this->input->post('name', TRUE),
-            'user_email'=> $this->input->post('email', TRUE),
-            'user_contact'=> $this->input->post('contact', TRUE),
-            'user_companyName'=> $this->input->post('companyName', TRUE),
-            'user_status'=> $this->input->post('userStatus', TRUE),
-            'user_type'=> $this->input->post('usertype', TRUE),
+            'masking'=> $this->input->post('masking', TRUE),
+            'activated_date'=> $this->input->post('activate_at', TRUE),
+            'deactivated_date'=> $this->input->post('deactivate_at', TRUE),
+            'sms_balance'=> $this->input->post('smsbal', TRUE),
+            'package'=> $this->input->post('package', TRUE),
+            'sms_charge'=> $this->input->post('smsCharge', TRUE),
+            'status'=> $this->input->post('status', TRUE),
+        );
+        $this->db->where('user_masking_id',$id);
+        return $this->db->update('user_masking', $values);
+    }
+
+    function get_maskingId(){
+        $maskingId=$this->db->query("SELECT user_masking_id FROM user_masking");
+	    return $maskingId;
+    }
+
+    function Add_user_payment(){
+        $values = array(
+            'masking_id'=> $this->input->post('masking_id', TRUE),
+            'amount'=> $this->input->post('amount', TRUE),
+            'paid_date'=> $this->input->post('paid_date', TRUE),
+            'discount_amount'=> $this->input->post('discount_amount', TRUE),
+            'status'=> $this->input->post('paymentStatus', TRUE)
           
         );
-        $this->db->where('user_id',$id);
-        return $this->db->update('user', $values);
+        return $this->db->insert('user_payment', $values);
     }
+
+    function getUserPayment(){
+        $getUserPayment=$this->db->query("SELECT * FROM user_payment");
+	    return $getUserPayment;
+    }
+
+    function SearchPayment(){
+        $from_date=$this->input->post('from_date', TRUE);
+        $to_date=$this->input->post('to_date', TRUE);
+        $search_Payment=$this->db->query("SELECT * FROM `user_payment` WHERE paid_date BETWEEN '$from_date' AND '$to_date'");
+	    return $search_Payment;
+    }
+
 }
 
 ?>

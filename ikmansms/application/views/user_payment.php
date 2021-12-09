@@ -8,118 +8,127 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">New User Registration</h4>
+                            <h4 class="card-title">User Payment</h4>
                         </div>
                     </div>
                     <?php
-                    if($this->session->flashdata('Error_status')){
-                        echo " <div class=\"alert alert-danger\">";
-                        echo $this->session->flashdata('Error_status');
-                        echo "</div>";
-                    }else if($this->session->flashdata('status')){
+                    if($this->session->flashdata('status')){
                         echo " <div class=\"alert alert-success\">";
                         echo $this->session->flashdata('status');
                         echo "</div>";
+                    }else if($this->session->flashdata('Error_status')){
+                        echo " <div class=\"alert alert-danger\">";
+                        echo $this->session->flashdata('Error_status');
+                        echo "</div>";
                     }
                     ?>
-                    <?php echo form_open('User/AddUser');?>
+                    <?php echo form_open('User/AddPayment');?>
                     <form class="needs-validation" method="post">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom01">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" name="name"
-                                        pattern="[A-za-z .]+" value="<?php echo set_value('name')?>">
-                                    <small class="text-danger"><?php echo form_error('name'); ?></small>
+                                <label class="form-label" for="validationCustom01">Masking ID</label>
+                                    <select class="form-control" name="masking_id">
+                                        <option value="">Select Masking ID</option>
+                                        <?php
+                                            foreach($maskingIds->result() as $maskingId){
+                                        ?>
+                                        <option value="<?php echo $maskingId->user_masking_id;?>">
+                                            <?php echo $maskingId->user_masking_id;?></option>
+                                        <?php }?>
+                                    </select>
+                                    <small class="text-danger"><?php echo form_error('masking_id'); ?></small>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom02">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Email"
-                                        value="<?php echo set_value('email')?>">
-                                    <small class="text-danger"><?php echo form_error('email'); ?></small>
+                                    <label class="form-label" for="validationCustom02">Amount</label>
+                                    <input type="text" class="form-control" name="amount" pattern="[0-9 .]+" placeholder="Amount"
+                                        value="<?php echo set_value('amount')?>">
+                                    <small class="text-danger"><?php echo form_error('amount'); ?></small>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom03">Contact</label>
-                                    <input type="text" class="form-control" name="contact" placeholder="0xxxxxxxxx"
-                                        maxlength="10" pattern="0[0-9]{9}" value="<?php echo set_value('contact')?>">
-                                    <small class="text-danger"><?php echo form_error('contact'); ?></small>
+                                    <label class="form-label">Paid Date</label>
+                                    <input type="date" class="form-control" name="paid_date" required>
+                                    <small class="text-danger"><?php echo form_error('padi_date'); ?></small>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom03">Type</label>
-                                    <select class="form-control" id="sel1" name="usertype">
-                                        <option value=" ">Select User Type</option>
-                                        <option value="type1">Type1</option>
-                                        <option value="type2">Type2</option>
-                                    </select>
-                                    <small class="text-danger"><?php echo form_error('usertype'); ?></small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="validationCustom04">Company Name</label>
-                                    <input type="text" class="form-control" placeholder="Company Name"
-                                        name="companyName" value="<?php echo set_value('companyName')?>">
-                                    <small class="text-danger"><?php echo form_error('companyName'); ?></small>
+                                    <label class="form-label" for="validationCustom03">Discount Amount</label>
+                                    <input type="text" class="form-control" name="discount_amount"  placeholder="Discount Amount" value="<?php echo set_value('discount_amount')?>">
+                                    <small class="text-danger"><?php echo form_error('discount_amount'); ?></small>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label" for="validationCustom02">Status</label>
-                                        <select class="form-control" id="sel1" name="userStatus">
-                                            <option value="">Select User Status</option>
+                                        <select class="form-control" id="sel1" name="paymentStatus">
+                                            <option value="">Select Status</option>
                                             <option value="1">Active</option>
                                             <option value="0">Deactive</option>
                                         </select>
-                                        <small class="text-danger"><?php echo form_error('userStatus'); ?></small>
+                                        <small class="text-danger"><?php echo form_error('paymentStatus'); ?></small>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-success" type="submit">Submit
-                        </button>
+                        <button class="btn btn-success" type="submit">Submit</button>
                     </form>
                     <?php echo form_close(); ?>
                 </div>
             </div>
-            <div class="row mt-5">
+            <row class="row mt-3">
+                <div class="col-md-8">
+                <?php echo form_open('User/SearchDate');?>
+                    <form  method="post">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">From Date</label>
+                            <input type="date" class="form-control" name="from_date" value="<?php echo set_value('from_date')?>" required>
+                            <small class="text-danger"><?php echo form_error('from_date'); ?></small>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">To Date</label>
+                            <input type="date" class="form-control" name="to_date" value="<?php echo set_value('to_date')?>" required>
+                            <small class="text-danger"><?php echo form_error('to_date'); ?></small>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success mt-4" type="submit">Search
+                        </button>
+                        </div>
+                    </div>
+                    </form>
+                <?php echo form_close(); ?>
+                </div>
+            </row>
+            <div class="row mt-3">
                 <div class="col-md-12">
                     <table class="table table-bordered dt-responsive  nowrap w-100">
                         <tr>
-                            <th>User Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Company Name</th>
-                            <th>User Status</th>
-                            <th>User type</th>
-                            <th>Action</th>
+                            <th>User Masking ID</th>
+                            <th>Masking ID</th>
+                            <th>Amount</th>
+                            <th>Paid Date</th>
+                            <th>Discount Amount</th>
+                            <th>Status</th>
                         </tr>
                         <?php
-                            foreach ($userData->result() as $data){
+                            foreach ($PayemntData->result() as $data){
                         ?>
                         <tr>
-                            <td><?php echo $data->user_id?></td>
-                            <td><?php echo $data->user_name?></td>
-                            <td><?php echo $data->user_email?></td>
-                            <td><?php echo $data->user_contact?></td>
-                            <td><?php echo $data->user_companyName?></td>
-                            <td><?php echo $data->user_status == 1 ?  'Active' : 'Deactivate';?></td>
-                            <td><?php echo $data->user_type?></td>
-                            <td> <i style="padding:10px" class="bx bx-remove-alt" data-bs-toggle="modal"
-                                    data-bs-target="#myModal"> <i class="bx bx-edit-alt"
-                                        onclick="updateuser('<?php echo $data->user_id;?>','<?php echo $data->user_name;?>','<?php echo $data->user_email;?>','<?php echo $data->user_contact;?>','<?php echo $data->user_companyName;?>','<?php echo $data->user_status;?>','<?php echo $data->user_type;?>')"></i>
-                                </i> <i class="fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    onclick="deleteUser('<?php echo $data->user_id;?>')"></i></td>
+                            <td><?php echo $data->user_payment_id?></td>
+                            <td><?php echo $data->masking_id?></td>
+                            <td><?php echo $data->amount?></td>
+                            <td><?php echo $data->paid_date?></td>
+                            <td><?php echo $data->discount_amount?></td>
+                            <td><?php echo $data->status == 1 ? 'Active' : 'Deactivate';?></td>
                         </tr>
                         <?php }?>
                     </table>
