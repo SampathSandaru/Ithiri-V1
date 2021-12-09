@@ -95,7 +95,7 @@ class User_model extends CI_Model {
     }
 
     function get_maskingId(){
-        $maskingId=$this->db->query("SELECT user_masking_id FROM user_masking");
+        $maskingId=$this->db->query("SELECT * FROM `user_masking`");
 	    return $maskingId;
     }
 
@@ -121,6 +121,21 @@ class User_model extends CI_Model {
         $to_date=$this->input->post('to_date', TRUE);
         $search_Payment=$this->db->query("SELECT * FROM `user_payment` WHERE paid_date BETWEEN '$from_date' AND '$to_date'");
 	    return $search_Payment;
+    }
+
+    //get data messag log
+    function getmsgLog(){
+        $getDatemsgLog=$this->db->query("SELECT * FROM message_log");
+	    return $getDatemsgLog;
+    }
+
+    //search msg log
+    function SearchMsg_Log(){
+        $masking_id=$this->input->post('masking_id', TRUE);
+        $from_date=$this->input->post('from_date', TRUE);
+        $to_date=$this->input->post('to_date', TRUE);
+        $msg_log=$this->db->query("SELECT * from user_masking inner join message_log where user_masking.user_masking_id = message_log.user_id AND user_masking.user_masking_id='$masking_id' AND message_log.sended_time BETWEEN '$from_date' AND '$to_date'");
+	    return $msg_log;
     }
 
 }

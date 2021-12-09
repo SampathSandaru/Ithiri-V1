@@ -164,6 +164,28 @@ class User extends CI_Controller {
         $data["maskingIds"] = $this->User_model->get_maskingId();
         $this->load->view('user_payment',$data);
    }
+
+   //user messag
+   public function user_msg(){
+        $this->load->model('User_model');
+        $data["maskingIds"] = $this->User_model->get_maskingId();
+        $data["msglog"] = $this->User_model->getmsgLog();
+        $this->load->view('user_msg',$data);
+   }
+
+   //get data msg log
+   function SearchMsgLog(){
+
+
+        $this->load->model('User_model');
+
+        $data["maskingIds"] = $this->User_model->get_maskingId();
+        $data["msglog"] = $this->User_model->getmsgLog();
+        $data["msglog"] = $this->User_model->SearchMsg_Log();
+        $this->load->view('user_msg',$data);
+   }
+
+
 }
 
 ?>

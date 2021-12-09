@@ -27,14 +27,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom01">User ID</label>
+                                    <label class="form-label" for="validationCustom01">User</label>
                                     <select class="form-control" name="user_id">
-                                        <option value="">Select User ID</option>
+                                        <option value="">Select User</option>
                                         <?php
                                             foreach($usersId->result() as $userId){
                                         ?>
                                         <option value="<?php echo $userId->user_id;?>">
-                                            <?php echo $userId->user_id."-".$userId->user_name;?></option>
+                                            <?php echo $userId->user_name;?></option>
                                         <?php }?>
                                     </select>
                                     <small class="text-danger"><?php echo form_error('user_id'); ?></small>
