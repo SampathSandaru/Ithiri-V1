@@ -25,5 +25,11 @@ class User_customer extends CI_Controller {
         $data["user_cus_number"] = $this->User_Customer_model->getUser_customer_number();
         $this->load->view('user_customer/user_customer',$data);
     }
+
+    public function send_messages(){
+        $this->load->model('User_Customer_model');
+        $data["customer_numbers"] = $this->User_Customer_model->get_contact_numbers();
+        $this->load->view('user_customer/send_customer_messages',$data);
+    }
 }
 

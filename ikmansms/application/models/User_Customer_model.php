@@ -14,4 +14,12 @@ class User_Customer_model extends CI_Model{
         $userData=$this->db->query("SELECT * FROM user_customer");
 		return $userData;
     }
+
+    function get_contact_numbers(){
+        $userContactNo=$this->db->query("SELECT contact_no FROM user_customer");
+		return $userContactNo;
+    }
+
+   
+
 }

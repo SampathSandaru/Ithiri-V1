@@ -295,6 +295,12 @@
                                     <span data-key="t-dashboard"  >User</span>
                                 </a>
                             </li>
+                            <li class="nav_hove">
+                                <a href="<?php echo base_url('index.php/user_customer/User_customer/send_messages')?>">
+                                     <img src="<?php echo base_url()?>/public/assets/marchant.svg" style="width:20px;height:20px" />
+                                    <span data-key="t-dashboard"  >Send Messages</span>
+                                </a>
+                            </li>
 
 
                             <!-- <li>
