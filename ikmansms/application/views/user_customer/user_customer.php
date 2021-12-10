@@ -8,7 +8,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">New User Registration</h4>
+                            <h4 class="card-title">Add New Number</h4>
                         </div>
                     </div>
                     <?php
@@ -58,7 +58,6 @@
                 <div class="col-md-12">
                     <table class="table table-bordered dt-responsive  nowrap w-100">
                         <tr>
-                            <th>User Id</th>
                             <th>Contact Number</th>
                             <th>User Name</th>
                             <th>Customer Type </th>
@@ -67,7 +66,6 @@
                             foreach ($user_cus_number->result() as $data){
                         ?>
                         <tr>
-                            <td><?php echo $data->user_id?></td>
                             <td><?php echo $data->contact_no?></td>
                             <td><?php echo $data->user_name?></td>
                             <td><?php echo $data->customer_type?></td>
