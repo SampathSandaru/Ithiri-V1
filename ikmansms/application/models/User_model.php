@@ -11,7 +11,7 @@ class User_model extends CI_Model {
           
         );
         return $this->db->insert('user', $values);
-       }
+    }
 
     function getUserData(){
         $userData=$this->db->query("SELECT * FROM user");

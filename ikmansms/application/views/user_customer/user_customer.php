@@ -22,31 +22,15 @@
                         echo "</div>";
                     }
                     ?>
-                    <?php echo form_open('User/AddUser');?>
+                    <?php echo form_open('user_customer/User_customer/Add_user_customer_msg');?>
                     <form class="needs-validation" method="post">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom01">Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" name="name"
-                                        pattern="[A-za-z .]+" value="<?php echo set_value('name')?>">
-                                    <small class="text-danger"><?php echo form_error('name'); ?></small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="validationCustom02">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Email"
+                                    <label class="form-label" for="validationCustom02">Contact Number</label>
+                                    <input type="text" class="form-control" name="contact_number" placeholder="Contact Number"
                                         value="<?php echo set_value('email')?>">
-                                    <small class="text-danger"><?php echo form_error('email'); ?></small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="validationCustom03">Contact</label>
-                                    <input type="text" class="form-control" name="contact" placeholder="0xxxxxxxxx"
-                                        maxlength="10" pattern="0[0-9]{9}" value="<?php echo set_value('contact')?>">
-                                    <small class="text-danger"><?php echo form_error('contact'); ?></small>
+                                    <small class="text-danger"><?php echo form_error('contact_number'); ?></small>
                                 </div>
                             </div>
                         </div>
@@ -62,27 +46,6 @@
                                     <small class="text-danger"><?php echo form_error('usertype'); ?></small>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="validationCustom04">Company Name</label>
-                                    <input type="text" class="form-control" placeholder="Company Name"
-                                        name="companyName" value="<?php echo set_value('companyName')?>">
-                                    <small class="text-danger"><?php echo form_error('companyName'); ?></small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="validationCustom02">Status</label>
-                                        <select class="form-control" id="sel1" name="userStatus">
-                                            <option value="">Select User Status</option>
-                                            <option value="1">Active</option>
-                                            <option value="0">Deactive</option>
-                                        </select>
-                                        <small class="text-danger"><?php echo form_error('userStatus'); ?></small>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <button class="btn btn-success" type="submit">Submit
@@ -96,32 +59,20 @@
                     <table class="table table-bordered dt-responsive  nowrap w-100">
                         <tr>
                             <th>User Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
                             <th>Contact Number</th>
-                            <th>Company Name</th>
-                            <th>User Status</th>
-                            <th>User type</th>
-                            <th>Action</th>
+                            <th>User Name</th>
+                            <th>Customer Type </th>
                         </tr>
                         <?php
-                            //foreach ($userData->result() as $data){
+                            foreach ($user_cus_number->result() as $data){
                         ?>
                         <tr>
-                            <!-- <td><?php echo $data->user_id?></td>
+                            <td><?php echo $data->user_id?></td>
+                            <td><?php echo $data->contact_no?></td>
                             <td><?php echo $data->user_name?></td>
-                            <td><?php echo $data->user_email?></td>
-                            <td><?php echo $data->user_contact?></td>
-                            <td><?php echo $data->user_companyName?></td>
-                            <td><?php echo $data->user_status == 1 ?  'Active' : 'Deactivate';?></td>
-                            <td><?php echo $data->user_type?></td>
-                            <td> <i style="padding:10px" class="bx bx-remove-alt" data-bs-toggle="modal"
-                                    data-bs-target="#myModal"> <i class="bx bx-edit-alt"
-                                        onclick="updateuser('<?php echo $data->user_id;?>','<?php echo $data->user_name;?>','<?php echo $data->user_email;?>','<?php echo $data->user_contact;?>','<?php echo $data->user_companyName;?>','<?php echo $data->user_status;?>','<?php echo $data->user_type;?>')"></i>
-                                </i> <i class="fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    onclick="deleteUser('<?php echo $data->user_id;?>')"></i></td> -->
+                            <td><?php echo $data->customer_type?></td>
                         </tr>
-                        <?php //}?>
+                        <?php }?>
                     </table>
                 </div>
             </div>

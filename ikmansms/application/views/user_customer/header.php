@@ -290,7 +290,7 @@
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title" data-key="t-menu">Menu</li>
                             <li class="nav_hove">
-                                <a href="<?php echo base_url('index.php/User/users')?>">
+                                <a href="<?php echo base_url('index.php/user_customer/User_customer/index')?>">
                                      <img src="<?php echo base_url()?>/public/assets/marchant.svg" style="width:20px;height:20px" />
                                     <span data-key="t-dashboard"  >User</span>
                                 </a>
