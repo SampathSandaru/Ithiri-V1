@@ -12,6 +12,7 @@ class User_customer extends CI_Controller {
 
         $this->form_validation->set_rules('contact_number','Number','required');
         $this->form_validation->set_rules('usertype','User Type','required');
+        $this->form_validation->set_rules('customer_name','customer name','required');
 
         $this->load->model('User_Customer_model');
         if($this->form_validation->run()==false){

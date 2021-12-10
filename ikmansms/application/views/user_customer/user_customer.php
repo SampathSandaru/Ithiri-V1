@@ -29,11 +29,21 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="validationCustom02">Contact Number</label>
                                     <input type="text" class="form-control" name="contact_number" placeholder="Contact Number"
-                                        value="<?php echo set_value('email')?>">
+                                        value="<?php echo set_value('contact_number')?>">
                                     <small class="text-danger"><?php echo form_error('contact_number'); ?></small>
                                 </div>
                             </div>
-                        </div>
+                    
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="validationCustom02">Customer Name</label>
+                                    <input type="text" class="form-control" name="customer_name" placeholder="Customer Name"
+                                        value="<?php echo set_value('customer_name')?>">
+                                    <small class="text-danger"><?php echo form_error('customer_name'); ?></small>
+                                </div>
+                            </div>
+                            </div>
+                  
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="mb-3">
