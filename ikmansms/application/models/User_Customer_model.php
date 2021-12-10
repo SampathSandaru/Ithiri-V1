@@ -20,6 +20,38 @@ class User_Customer_model extends CI_Model{
 		return $userContactNo;
     }
 
+   //msg log
+   function add_msg_log(){
+        $create_at = date('Y-m-d H:i:s');
+        $mobile='';
+        $numbers=$this->input->post('contact', TRUE);
+        foreach($numbers as $number){
+           $mobile.=$number.", ";
+        }
+
+        $values = array(
+            'user_id'=> 1,
+            'mobile_numbers'=> $mobile,
+            'message'=> $this->input->post('message', TRUE),
+            'sended_time'=> $create_at,
+            'message_id'=>1,
+            'status'=>0
+            );
+            return $this->db->insert('message_log', $values);
+   }
+
+   function get_msg_log(){
+    $get_msg_log=$this->db->query("SELECT * FROM message_log ORDER BY sended_time DESC");
+    return $get_msg_log;
+   }
    
+   function msg_log_search(){
+        $from_date=$this->input->post('from_date', TRUE);
+        $to_date=$this->input->post('to_date', TRUE);
+        $search_msglog=$this->db->query("SELECT * FROM `message_log` WHERE sended_time BETWEEN '$from_date' AND '$to_date'");
+	    return $search_msglog;
+   }
+
+
 
 }

@@ -29,6 +29,32 @@ class User_customer extends CI_Controller {
     public function send_messages(){
         $this->load->model('User_Customer_model');
         $data["customer_numbers"] = $this->User_Customer_model->get_contact_numbers();
+        $data["get_msg_log"] = $this->User_Customer_model->get_msg_log();
+        $this->load->view('user_customer/send_customer_messages',$data);
+    }
+
+    //send message
+    function send_msg_customer(){
+        $this->form_validation->set_rules('contact[]','Number','required');
+        $this->form_validation->set_rules('message','Message','required');
+        $this->load->model('User_Customer_model');
+
+        if($this->form_validation->run()==false){
+            $this->session->set_flashdata('Error_status', 'Error!');
+        }else{
+            $this->session->set_flashdata('status', 'Successful!');
+            $this->User_Customer_model->add_msg_log();
+        }
+        
+        $data["customer_numbers"] = $this->User_Customer_model->get_contact_numbers();
+        $data["get_msg_log"] = $this->User_Customer_model->get_msg_log();
+        $this->load->view('user_customer/send_customer_messages',$data);
+    }
+    
+    function searcg_msg_log(){
+        $this->load->model('User_Customer_model');
+        $data["customer_numbers"] = $this->User_Customer_model->get_contact_numbers();
+        $data["get_msg_log"] = $this->User_Customer_model->msg_log_search();
         $this->load->view('user_customer/send_customer_messages',$data);
     }
 }
